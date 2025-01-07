@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Socket.io Test</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    </head>
+    <body>
+        <script>
+            const socket = io("http://localhost:4000", {
+                auth: {
+                    id: "user_12",
+                    name: "John Doe",
+                    type: "user",
+                },
+            });
+
+            socket.on("connect", () => {
+                console.log("Connected to the server");
+            });
+
+            socket.on("error", (error) => {
+                console.log("Error:", error);
+            });
+        </script>
+    </body>
+</html>
