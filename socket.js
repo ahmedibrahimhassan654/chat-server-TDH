@@ -9,6 +9,7 @@ const {
     createRoomByName,
 } = require("./app/socketControllers/chtRoomController");
 const { messageToRoom } = require("./app/socketControllers/messageController");
+
 const { checkAuth } = require("./app/utilities/checkAuthObject");
 const {
     generateMockUserData,
@@ -34,11 +35,14 @@ module.exports = (httpServer) => {
         }
 
         console.log("Handshake auth:", auth);
-
+        console.error("Invalid auth object:", {
+            providedAuth: auth,
+            expectedFormat: { id: "string", name: "string", type: "string" },
+        });
         const currentUserData = {
-            id: auth.id,
-            name: auth.name,
-            type: auth.type,
+            id: auth.id || "unknown",
+            name: auth.name || "anonymous",
+            type: auth.type || "user",
             connectedAt: new Date(),
             isMock: false,
         };
