@@ -14,16 +14,15 @@ connectDB();
 // Middleware
 app.use(morgan("dev"));
 
-// Health check route
-app.get("/health", (req, res) => {
-    res.status(200).send({ status: "Server is running!" });
-});
-
 // Create HTTP server
 const httpServer = http.createServer(app);
 
 // Initialize Socket.IO
 require("./socket")(httpServer);
+// Health check route
+app.get("/", (req, res) => {
+    res.status(200).send({ status: "Server is running!" });
+});
 
 // Error handling middleware
 app.use(errorHandler);
